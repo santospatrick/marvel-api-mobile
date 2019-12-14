@@ -26,7 +26,7 @@ const Hero = ({ item, navigation }) => {
           style={{
             height: 150,
             width: 100,
-            backgroundColor: 'red',
+            backgroundColor: '#ccc',
           }}
           resizeMode="cover"
           source={{ uri: `${item.thumbnail.path}.${item.thumbnail.extension}` }}
