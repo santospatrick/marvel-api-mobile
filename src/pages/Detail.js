@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Text, Image } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import char from './3dman.json';
 import { FlatList } from 'react-native-gesture-handler';
 import IconButton from '../components/IconButton.js';
@@ -15,21 +15,22 @@ const Detail = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Image
+      <ImageBackground
         source={{
           uri: `${character.thumbnail.path}.${character.thumbnail.extension}`,
         }}
         style={{
-          height: 320,
+          flex: 1,
         }}
-      />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      >
         <FlatList
           data={character.urls}
           numColumns={3}
           contentContainerStyle={{
             flex: 1,
             padding: 5,
+            paddingBottom: 30,
+            justifyContent: 'flex-end',
           }}
           keyExtractor={item => item.url}
           renderItem={({ item, index }) => (
@@ -41,7 +42,7 @@ const Detail = ({ navigation }) => {
             </IconButton>
           )}
         />
-      </ScrollView>
+      </ImageBackground>
     </View>
   );
 };

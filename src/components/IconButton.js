@@ -19,14 +19,14 @@ const IconButton = ({ children, style, icon = '', ...rest }) => {
             height: 80,
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#e71a24',
+            backgroundColor: '#fff',
           },
           style,
         ]}
         {...rest}
       >
-        <Icon name={icon} color="#fff" size={24} />
-        <Text style={{ color: '#fff', marginTop: 5 }}>{children}</Text>
+        <Icon name={icon} color="#e71a24" size={24} />
+        <Text style={{ color: '#e71a24ff', marginTop: 5 }}>{children}</Text>
       </RectButton>
     </View>
   );
