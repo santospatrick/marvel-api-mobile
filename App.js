@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { SafeAreaView, Text, Image } from 'react-native';
 import api from './src/services/api';
 
 const App = () => {
@@ -16,22 +16,26 @@ const App = () => {
       setList(response.data.data.results);
     }
 
-    loadCharacters();
+    // loadCharacters();
   }, []);
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
       }}
     >
+      <Image
+        style={{ height: 40 }}
+        resizeMode="contain"
+        source={require('./src/images/logo.png')}
+      />
+      <Text>Marvel</Text>
       {list.map(item => (
         <Text key={item.id}>{item.name}</Text>
       ))}
-      <Text>Marvel</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 
