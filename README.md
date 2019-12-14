@@ -11,6 +11,12 @@
 1. Crie um arquivo `.env` a partir do `.env.example` e preencha as variáveis corretamente
 2. Rode o ambiente localmente
 ```bash
+# Instale as dependências
+yarn install
+
+# Instale a CLI do react native
+yarn global add react-native-cli
+
 # iOS
 react-native run-ios --simulator "iPhone X"
 
