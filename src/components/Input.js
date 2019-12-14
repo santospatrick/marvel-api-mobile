@@ -12,7 +12,7 @@ const Input = props => {
         alignItems: 'center',
         paddingHorizontal: 15,
         marginHorizontal: 20,
-        marginBottom: 10,
+        // marginBottom: 10,
       }}
     >
       <Icon name="search1" size={18} color="#fff" />

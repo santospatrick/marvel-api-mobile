@@ -19,6 +19,7 @@ const Hero = ({ item, navigation }) => {
           marginHorizontal: 20,
           flexDirection: 'row',
           marginBottom: 15,
+          elevation: 5,
         }}
         onPress={() => navigation.navigate('Detail', { id: item.id })}
       >
@@ -27,6 +28,8 @@ const Hero = ({ item, navigation }) => {
             height: 150,
             width: 100,
             backgroundColor: '#ccc',
+            borderTopLeftRadius: 20,
+            borderBottomLeftRadius: 20,
           }}
           resizeMode="cover"
           source={{ uri: `${item.thumbnail.path}.${item.thumbnail.extension}` }}
