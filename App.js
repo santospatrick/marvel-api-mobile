@@ -7,11 +7,16 @@ const App = () => {
 
   useEffect(() => {
     async function loadCharacters() {
-      const response = await api.get('/v1/public/comics');
-      setList(response.data.data.list);
+      const response = await api.get('/v1/public/characters', {
+        params: {
+          limit: 4,
+        },
+      });
+
+      setList(response.data.data.results);
     }
 
-    // loadCharacters();
+    loadCharacters();
   }, []);
 
   return (
@@ -22,6 +27,9 @@ const App = () => {
         justifyContent: 'center',
       }}
     >
+      {list.map(item => (
+        <Text key={item.id}>{item.name}</Text>
+      ))}
       <Text>Marvel</Text>
     </View>
   );
