@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import api from '../services/api';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import characters from './characters.json';
 import Hero from '../components/Hero';
 import Input from '../components/Input';
@@ -24,12 +23,12 @@ const Home = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 20 }}>
+    <View style={{ flex: 1, paddingVertical: 20 }}>
       <Input />
       <FlatList
-        style={{ paddingTop: 20 }}
+        style={{ paddingTop: 15 }}
         data={list}
-        renderItem={({ item }) => <Hero item={item} />}
+        renderItem={({ item }) => <Hero navigation={navigation} item={item} />}
         keyExtractor={item => String(item.id)}
       />
     </View>

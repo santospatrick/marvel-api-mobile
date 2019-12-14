@@ -11,6 +11,7 @@ const Input = () => {
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 15,
+        marginHorizontal: 20,
       }}
     >
       <Icon name="search1" size={18} color="#fff" />
