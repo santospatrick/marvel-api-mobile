@@ -4,11 +4,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Home from './src/pages/Home';
 import Detail from './src/pages/Detail';
 import Logo from './src/components/Logo';
+import WebPage from './src/pages/WebPage';
 
 const AppNavigator = createStackNavigator(
   {
     Home,
     Detail,
+    WebPage,
   },
   {
     defaultNavigationOptions: {
@@ -18,6 +20,7 @@ const AppNavigator = createStackNavigator(
       },
     },
     headerLayoutPreset: 'center',
+    headerBackTitleVisible: false,
   },
 );
 
