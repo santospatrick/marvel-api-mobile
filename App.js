@@ -18,6 +18,7 @@ const AppNavigator = createStackNavigator(
       headerStyle: {
         borderBottomWidth: 0,
       },
+      headerTintColor: '#e71a24',
     },
     headerLayoutPreset: 'center',
     headerBackTitleVisible: false,
