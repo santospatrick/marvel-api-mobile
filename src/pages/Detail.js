@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, ImageBackground, ActivityIndicator } from 'react-native';
+import { View, ImageBackground, ActivityIndicator, Text } from 'react-native';
 import char from './3dman.json';
-import { FlatList } from 'react-native-gesture-handler';
 import IconButton from '../components/IconButton.js';
 import api from '../services/api.js';
-
-const actions = [
-  { icon: 'contacts', label: 'Perfil' },
-  { icon: 'barschart', label: 'Wiki' },
-  { icon: 'book', label: 'Comics' },
-];
 
 const Detail = ({ navigation }) => {
   const [character, setCharacter] = useState(char);
@@ -52,25 +45,48 @@ const Detail = ({ navigation }) => {
           paddingBottom: 25,
         }}
       >
-        <IconButton
-          icon="contacts"
-          onPress={() => navigation.navigate('WebPage', { link: detail.url })}
-        >
-          Perfil
-        </IconButton>
-        <IconButton
-          icon="barschart"
-          style={{ marginHorizontal: 20 }}
-          onPress={() => navigation.navigate('WebPage', { link: wiki.url })}
-        >
-          Wiki
-        </IconButton>
-        <IconButton
-          icon="book"
-          onPress={() => navigation.navigate('WebPage', { link: comics.url })}
-        >
-          Comics
-        </IconButton>
+        <View style={{ alignItems: 'center' }}>
+          <View
+            style={{
+              backgroundColor: '#fff',
+              marginBottom: 15,
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 40,
+              paddingHorizontal: 20,
+              borderRadius: 20,
+            }}
+          >
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+              {character.name}
+            </Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <IconButton
+              icon="contacts"
+              onPress={() =>
+                navigation.navigate('WebPage', { link: detail.url })
+              }
+            >
+              Perfil
+            </IconButton>
+            <IconButton
+              icon="barschart"
+              style={{ marginHorizontal: 20 }}
+              onPress={() => navigation.navigate('WebPage', { link: wiki.url })}
+            >
+              Wiki
+            </IconButton>
+            <IconButton
+              icon="book"
+              onPress={() =>
+                navigation.navigate('WebPage', { link: comics.url })
+              }
+            >
+              Comics
+            </IconButton>
+          </View>
+        </View>
       </ImageBackground>
     </View>
   );
