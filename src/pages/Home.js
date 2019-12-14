@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import api from '../services/api';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import characters from './characters.json';
+import Hero from '../components/Hero';
+import Input from '../components/Input';
 
 const Home = ({ navigation }) => {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(characters);
 
   useEffect(() => {
     async function loadCharacters() {
@@ -21,22 +24,14 @@ const Home = ({ navigation }) => {
   }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-      }}
-    >
-      <Text>Marvel</Text>
-      {list.map(item => (
-        <Text key={item.id}>{item.name}</Text>
-      ))}
-      <TouchableHighlight
-        onPress={() => navigation.navigate('Detail')}
-        underlayColor="transparent"
-      >
-        <Text>Página de detalhe</Text>
-      </TouchableHighlight>
+    <View style={{ flex: 1, padding: 20 }}>
+      <Input />
+      <FlatList
+        style={{ paddingTop: 20 }}
+        data={list}
+        renderItem={({ item }) => <Hero item={item} />}
+        keyExtractor={item => String(item.id)}
+      />
     </View>
   );
 };

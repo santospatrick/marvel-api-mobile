@@ -13,7 +13,11 @@ const AppNavigator = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerTitle: () => <Logo />,
+      headerStyle: {
+        borderBottomWidth: 0,
+      },
     },
+    headerLayoutPreset: 'center',
   },
 );
 
