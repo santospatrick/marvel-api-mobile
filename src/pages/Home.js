@@ -1,25 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import debounce from 'lodash.debounce';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, Text, ActivityIndicator } from 'react-native';
 import api from '../services/api';
 import Hero from '../components/Hero';
 import Input from '../components/Input';
+
+const PER_PAGE = 4;
 
 const Home = ({ navigation }) => {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [search, setSearch] = useState('');
+  const flatListRef = useRef(null);
 
   async function loadCharacters(reset = false) {
     if (loading) return;
 
     setLoading(true);
+
+    if (!reset) {
+      setLoadingMore(true);
+    }
+
     const newPage = reset ? 1 : page + 1;
 
     const params = {
-      limit: 4,
-      offset: (newPage - 1) * 4,
+      limit: PER_PAGE,
+      offset: (newPage - 1) * PER_PAGE,
     };
 
     if (search) {
@@ -35,6 +44,7 @@ const Home = ({ navigation }) => {
         : [...list, ...response.data.data.results],
     );
     setLoading(false);
+    setLoadingMore(false);
   }
 
   function onRefresh() {
@@ -43,12 +53,12 @@ const Home = ({ navigation }) => {
   }
 
   function onEndReached() {
-    if (loading) return;
+    if (loading || list.length < PER_PAGE) return;
     loadCharacters();
   }
 
   useEffect(() => {
-    loadCharacters();
+    loadCharacters(true);
   }, []);
 
   return (
@@ -56,11 +66,15 @@ const Home = ({ navigation }) => {
       <Input
         onChangeText={setSearch}
         value={search}
+        onFocus={() => {
+          flatListRef.current.scrollToIndex({ index: 0, animated: true });
+        }}
         onSubmitEditing={() => loadCharacters(true)}
       />
       <FlatList
         style={{ paddingTop: 15 }}
         data={list}
+        ref={flatListRef}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         onRefresh={onRefresh}
@@ -68,6 +82,16 @@ const Home = ({ navigation }) => {
         keyExtractor={item => String(item.id)}
         onEndReached={debounce(onEndReached, 500)}
         onEndReachedThreshold={0}
+        ListFooterComponent={() => {
+          if (!loadingMore) return null;
+          return (
+            <ActivityIndicator
+              style={{ marginTop: 10, marginBottom: 30 }}
+              size={24}
+              color="red"
+            />
+          );
+        }}
         ListEmptyComponent={() => {
           if (loading) return null;
           return (
