@@ -1,4 +1,4 @@
-# gympoint-mobile
+# marvel-api-mobile
 > Consuming Marvel API with React Native
 
 <p style="text-align: center;">
