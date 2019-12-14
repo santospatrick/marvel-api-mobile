@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const Input = () => {
+const Input = props => {
   return (
     <View
       style={{
@@ -26,7 +26,7 @@ const Input = () => {
         placeholder="Busque por um herói"
         placeholderTextColor="#fff"
         returnKeyType="search"
-        text
+        {...props}
       />
     </View>
   );

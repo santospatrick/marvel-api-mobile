@@ -20,6 +20,7 @@ const Hero = ({ item, navigation }) => {
           flexDirection: 'row',
           marginBottom: 15,
         }}
+        onPress={() => navigation.navigate('Detail', { id: item.id })}
       >
         <Image
           style={{
@@ -30,19 +31,30 @@ const Hero = ({ item, navigation }) => {
           resizeMode="cover"
           source={{ uri: `${item.thumbnail.path}.${item.thumbnail.extension}` }}
         />
-        <View style={{ padding: 10, flex: 1 }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
-          <Text style={{ fontSize: 12, marginVertical: 5 }} numberOfLines={3}>
-            {item.description
-              ? item.description
-              : 'Personagem ainda não tem descrição'}
-          </Text>
-          <View style={{ flexDirection: 'row' }}>
+        <View style={{ padding: 10, flex: 1, justifyContent: 'space-between' }}>
+          <View>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 2 }}>
+              {item.name}
+            </Text>
             <Text style={{ fontSize: 10, color: 'rgba(0,0,0,.6)' }}>
               {item.comics.items.length} quadrinhos |{' '}
               {item.stories.items.length} histórias
             </Text>
           </View>
+          <View>
+            <Text style={{ fontSize: 12, marginVertical: 5 }} numberOfLines={3}>
+              {item.description
+                ? item.description
+                : 'Personagem ainda não tem descrição'}
+            </Text>
+          </View>
+          <Text
+            style={{
+              color: '#e71a24',
+            }}
+          >
+            Ver mais
+          </Text>
         </View>
       </RectButton>
     </View>
