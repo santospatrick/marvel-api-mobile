@@ -13,7 +13,7 @@ const actions = [
 
 const Detail = ({ navigation }) => {
   const [character, setCharacter] = useState(char);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const id = navigation.getParam('id');
@@ -24,7 +24,7 @@ const Detail = ({ navigation }) => {
       setLoading(false);
     }
 
-    // loadCharacter();
+    loadCharacter();
   }, []);
 
   if (loading) {
@@ -35,33 +35,42 @@ const Detail = ({ navigation }) => {
     );
   }
 
+  const [detail, wiki, comics] = character.urls;
+
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground
         source={{
           uri: `${character.thumbnail.path}.${character.thumbnail.extension}`,
         }}
-        style={{ flex: 1 }}
+        resizeMode="cover"
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          paddingBottom: 25,
+        }}
       >
-        <FlatList
-          data={character.urls}
-          numColumns={3}
-          contentContainerStyle={{
-            flex: 1,
-            padding: 5,
-            paddingBottom: 20,
-            justifyContent: 'flex-end',
-          }}
-          keyExtractor={item => item.url}
-          renderItem={({ item, index }) => (
-            <IconButton
-              icon={actions[index].icon}
-              onPress={() => navigation.navigate('WebPage', { link: item.url })}
-            >
-              {actions[index].label}
-            </IconButton>
-          )}
-        />
+        <IconButton
+          icon="contacts"
+          onPress={() => navigation.navigate('WebPage', { link: detail.url })}
+        >
+          Perfil
+        </IconButton>
+        <IconButton
+          icon="barschart"
+          style={{ marginHorizontal: 20 }}
+          onPress={() => navigation.navigate('WebPage', { link: wiki.url })}
+        >
+          Wiki
+        </IconButton>
+        <IconButton
+          icon="book"
+          onPress={() => navigation.navigate('WebPage', { link: comics.url })}
+        >
+          Comics
+        </IconButton>
       </ImageBackground>
     </View>
   );
