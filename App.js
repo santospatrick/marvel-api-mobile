@@ -1,42 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, Image } from 'react-native';
-import api from './src/services/api';
+import React from 'react';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import Home from './src/pages/Home';
+import Detail from './src/pages/Detail';
+import Logo from './src/components/Logo';
 
-const App = () => {
-  const [list, setList] = useState([]);
+const AppNavigator = createStackNavigator(
+  {
+    Home,
+    Detail,
+  },
+  {
+    defaultNavigationOptions: {
+      headerTitle: () => <Logo />,
+    },
+  },
+);
 
-  useEffect(() => {
-    async function loadCharacters() {
-      const response = await api.get('/v1/public/characters', {
-        params: {
-          limit: 4,
-        },
-      });
-
-      setList(response.data.data.results);
-    }
-
-    // loadCharacters();
-  }, []);
-
-  return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        alignItems: 'center',
-      }}
-    >
-      <Image
-        style={{ height: 40 }}
-        resizeMode="contain"
-        source={require('./src/images/logo.png')}
-      />
-      <Text>Marvel</Text>
-      {list.map(item => (
-        <Text key={item.id}>{item.name}</Text>
-      ))}
-    </SafeAreaView>
-  );
-};
-
-export default App;
+export default createAppContainer(AppNavigator);
