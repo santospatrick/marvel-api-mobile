@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import debounce from 'lodash.debounce';
 import { View, FlatList, Text } from 'react-native';
 import api from '../services/api';
 import Hero from '../components/Hero';
@@ -6,12 +7,19 @@ import Input from '../components/Input';
 
 const Home = ({ navigation }) => {
   const [list, setList] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
 
-  async function loadCharacters() {
+  async function loadCharacters(reset = false) {
+    if (loading) return;
+
+    setLoading(true);
+    const newPage = reset ? 1 : page + 1;
+
     const params = {
       limit: 4,
+      offset: (newPage - 1) * 4,
     };
 
     if (search) {
@@ -20,13 +28,22 @@ const Home = ({ navigation }) => {
 
     const response = await api.get('/v1/public/characters', { params });
 
-    setList(response.data.data.results);
+    setPage(newPage);
+    setList(
+      reset
+        ? response.data.data.results
+        : [...list, ...response.data.data.results],
+    );
     setLoading(false);
   }
 
   function onRefresh() {
     setList([]);
-    setLoading(true);
+    loadCharacters(true);
+  }
+
+  function onEndReached() {
+    if (loading) return;
     loadCharacters();
   }
 
@@ -39,7 +56,7 @@ const Home = ({ navigation }) => {
       <Input
         onChangeText={setSearch}
         value={search}
-        onSubmitEditing={loadCharacters}
+        onSubmitEditing={() => loadCharacters(true)}
       />
       <FlatList
         style={{ paddingTop: 15 }}
@@ -49,6 +66,8 @@ const Home = ({ navigation }) => {
         onRefresh={onRefresh}
         renderItem={({ item }) => <Hero navigation={navigation} item={item} />}
         keyExtractor={item => String(item.id)}
+        onEndReached={debounce(onEndReached, 500)}
+        onEndReachedThreshold={0}
         ListEmptyComponent={() => {
           if (loading) return null;
           return (
