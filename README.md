@@ -2,7 +2,7 @@
 > Consuming Marvel API with React Native
 
 <p style="text-align: center;">
-  <img src="docs/first.png" width="260" />
+  <img src="docs/app.gif" width="258" />
   <img src="docs/second.png" width="260" />
   <img src="docs/third.png" width="260" />
 </p>
