@@ -26,6 +26,7 @@ const Input = props => {
         placeholder="Busque por um herói"
         placeholderTextColor="#fff"
         returnKeyType="search"
+        selectTextOnFocus
         {...props}
       />
     </View>
